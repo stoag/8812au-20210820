@@ -2593,11 +2593,13 @@ clean:
 	rm -fr MOK.der MOK.priv
 endif
 
-
 # --- TWEAKER KERNEL GKI OVERRIDES ---
 # Hardcoded absolute paths for Bazel sandboxing
 EXTRA_CFLAGS += -I$(srctree)/drivers/net/wireless/realtek/rtl8812au/include
+EXTRA_CFLAGS += -I$(srctree)/drivers/net/wireless/realtek/rtl8812au/hal
 EXTRA_CFLAGS += -I$(srctree)/drivers/net/wireless/realtek/rtl8812au/hal/phydm
+EXTRA_CFLAGS += -I$(srctree)/drivers/net/wireless/realtek/rtl8812au/hal/phydm/halrf
+EXTRA_CFLAGS += -I$(srctree)/drivers/net/wireless/realtek/rtl8812au/hal/phydm/phydm
 EXTRA_CFLAGS += -I$(srctree)/drivers/net/wireless/realtek/rtl8812au/hal/btc
 EXTRA_CFLAGS += -I$(srctree)/drivers/net/wireless/realtek/rtl8812au/core/crypto
 EXTRA_CFLAGS += -I$(srctree)/drivers/net/wireless/realtek/rtl8812au/platform
