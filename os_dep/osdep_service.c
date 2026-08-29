@@ -14,11 +14,22 @@
  *****************************************************************************/
 
 
+
 #define _OSDEP_SERVICE_C_
 
 #include <drv_types.h>
 
 #define RT_TAG	'1178'
+
+
+/* GKI PREBUILT BYPASS - STUB FILE I/O */
+#include <linux/fs.h>
+#include <linux/err.h>
+#include <linux/errno.h>
+
+struct file *filp_open_dummy(const char *filename, int flags, umode_t mode) { return ERR_PTR(-ENOENT); }
+ssize_t kernel_read_dummy(struct file *file, void *buf, size_t count, loff_t *pos) { return -EIO; }
+ssize_t kernel_write_dummy(struct file *file, const void *buf, size_t count, loff_t *pos) { return -EIO; }
 
 #ifdef DBG_MEMORY_LEAK
 #ifdef PLATFORM_LINUX
