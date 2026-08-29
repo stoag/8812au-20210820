@@ -1,3 +1,11 @@
+All of the credit should go to the original author but, I've forked this repo so that I could make the necessary changes in order to incorporate it into nethunter on Android 16. 
+
+...with success I may add...
+
+-stoag
+
+
+
 Notice: A standards compliant (mac80211), in-kernel driver for rtl8812au chipset based adapters and modules is available and as of kernel 6.14 is of good quality. If your distro uses kernel 6.14 or later, there should be no need to install this driver. Bug reports for the in-kernel can be posted at the following repo:
 
 https://github.com/lwfinger/rtw88
