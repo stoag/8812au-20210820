@@ -1,6 +1,6 @@
 All of the credit should go to the original author but, I've forked this repo so that I could make the necessary changes in order to incorporate it into nethunter on Android 16. 
 
-...with success I may add...
+...curewntly a work in progress...
 
 -stoag
 
