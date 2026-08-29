@@ -2592,3 +2592,16 @@ clean:
 	rm -fr .tmp_versions
 	rm -fr MOK.der MOK.priv
 endif
+
+
+# --- TWEAKER KERNEL GKI OVERRIDES ---
+# Hardcoded absolute paths for Bazel sandboxing
+EXTRA_CFLAGS += -I$(srctree)/drivers/net/wireless/realtek/rtl8812au/include
+EXTRA_CFLAGS += -I$(srctree)/drivers/net/wireless/realtek/rtl8812au/hal/phydm
+EXTRA_CFLAGS += -I$(srctree)/drivers/net/wireless/realtek/rtl8812au/hal/btc
+
+# Suppress strict Clang 18 Android errors
+EXTRA_CFLAGS += -Wno-error -Wno-unknown-warning-option -Wno-cast-function-type -Wno-incompatible-pointer-types -Wno-uninitialized -Wno-sometimes-uninitialized -Wno-tautological-overlap-compare -Wno-date-time
+
+# GKI File I/O Bypasses
+EXTRA_CFLAGS += -Dfilp_open=filp_open_dummy -Dkernel_read=kernel_read_dummy -Dkernel_write=kernel_write_dummy
