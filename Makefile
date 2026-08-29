@@ -2599,6 +2599,8 @@ endif
 EXTRA_CFLAGS += -I$(srctree)/drivers/net/wireless/realtek/rtl8812au/include
 EXTRA_CFLAGS += -I$(srctree)/drivers/net/wireless/realtek/rtl8812au/hal/phydm
 EXTRA_CFLAGS += -I$(srctree)/drivers/net/wireless/realtek/rtl8812au/hal/btc
+EXTRA_CFLAGS += -I$(srctree)/drivers/net/wireless/realtek/rtl8812au/core/crypto
+EXTRA_CFLAGS += -I$(srctree)/drivers/net/wireless/realtek/rtl8812au/platform
 
 # Suppress strict Clang 18 Android errors
 EXTRA_CFLAGS += -Wno-error -Wno-unknown-warning-option -Wno-cast-function-type -Wno-incompatible-pointer-types -Wno-uninitialized -Wno-sometimes-uninitialized -Wno-tautological-overlap-compare -Wno-date-time
