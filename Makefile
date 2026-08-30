@@ -2608,4 +2608,4 @@ EXTRA_CFLAGS += -I$(srctree)/drivers/net/wireless/realtek/rtl8812au/platform
 EXTRA_CFLAGS += -Wno-error -Wno-unknown-warning-option -Wno-cast-function-type -Wno-incompatible-pointer-types -Wno-uninitialized -Wno-sometimes-uninitialized -Wno-tautological-overlap-compare -Wno-date-time
 
 # GKI File I/O Bypasses
-EXTRA_CFLAGS += -Dfilp_open=filp_open_dummy -Dkernel_read=kernel_read_dummy -Dkernel_write=kernel_write_dummy
+EXTRA_CFLAGS += -Dfilp_open=filp_open_dummy -Dkernel_read=kernel_read_dummy -Dkernel_write=kernel_write_dummy -Dkern_path=kern_path_dummy
