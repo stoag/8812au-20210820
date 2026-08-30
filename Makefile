@@ -81,8 +81,8 @@ CONFIG_PCI_HCI = n
 CONFIG_SDIO_HCI = n
 CONFIG_GSPI_HCI = n
 ######################### LED Control ########################
-CONFIG_LED_CONTROL = y
-CONFIG_LED_ENABLE = y
+CONFIG_LED_CONTROL = n
+CONFIG_LED_ENABLE = n
 ######################### Features ############################
 CONFIG_AP_MODE = y
 CONFIG_P2P = y
