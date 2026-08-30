@@ -30,6 +30,7 @@
 struct file *filp_open_dummy(const char *filename, int flags, umode_t mode) { return ERR_PTR(-ENOENT); }
 ssize_t kernel_read_dummy(struct file *file, void *buf, size_t count, loff_t *pos) { return -EIO; }
 ssize_t kernel_write_dummy(struct file *file, const void *buf, size_t count, loff_t *pos) { return -EIO; }
+int kern_path_dummy(const char *name, unsigned int flags, void *path) { return -ENOENT; }
 
 #ifdef DBG_MEMORY_LEAK
 #ifdef PLATFORM_LINUX
