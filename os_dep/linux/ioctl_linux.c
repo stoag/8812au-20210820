@@ -10624,12 +10624,12 @@ static int rtw_tdls_weaksec(struct net_device *dev,
 	_adapter *padapter = (_adapter *)rtw_netdev_priv(dev);
 
 	RTW_INFO("[%s] %s %d\n", __FUNCTION__, extra, wrqu->data.length - 1);
-
+/* Fix for disabled P2P / missing wdinfo struct
 	if (extra[0] == '0')
 		padapter->wdinfo.wfd_tdls_weaksec = 0;
 	else
 		padapter->wdinfo.wfd_tdls_weaksec = 1;
-
+*/
 #endif /* CONFIG_TDLS */
 
 	return ret;
