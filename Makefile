@@ -22,7 +22,7 @@ ccflags-y += -Wno-implicit-fallthrough
 #ccflags-y += -Wno-discarded-qualifiers
 
 # Activates Concurrent Mode if uncommented
-#ccflags-y += -DCONFIG_CONCURRENT_MODE
+ccflags-y += -DCONFIG_CONCURRENT_MODE
 
 # Sets wireless regulatory (REGD) sourse to OS
 ccflags-y += -DCONFIG_REGD_SRC_FROM_OS
