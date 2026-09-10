@@ -1798,7 +1798,10 @@ static u8 is_rtw_ndev(struct net_device *ndev)
 
 static int rtw_ndev_notifier_call(struct notifier_block *nb, unsigned long state, void *ptr)
 {
-	struct net_device *ndev;
+/* Bypassed for Android GKI stability 
+
+
+struct net_device *ndev;
 
 	if (ptr == NULL)
 		return NOTIFY_DONE;
@@ -1831,7 +1834,7 @@ static int rtw_ndev_notifier_call(struct notifier_block *nb, unsigned long state
 		break;
 	#endif
 	}
-
+*/
 	return NOTIFY_DONE;
 }
 
