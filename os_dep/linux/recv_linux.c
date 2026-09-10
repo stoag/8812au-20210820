@@ -69,7 +69,7 @@ int rtw_os_alloc_recvframe(_adapter *padapter, union recv_frame *precvframe, u8 
 
 
 	/*	Modified by Albert 20101213 */
-	/*	For 8 bytes IP header alignment. */
+	/*	For 8 bytes IP header alrtw_osignment. */
 	shift_sz = pattrib->qos ? 6 : 0; /*	Qos data, wireless lan header length is 26 */
 
 	skb_len = pattrib->pkt_len;
@@ -165,15 +165,16 @@ void rtw_os_free_recvframe(union recv_frame *precvframe)
 	}
 }
 
-/* init os related resource in struct recv_priv */
+/* init os related resource in struct recv_priv ***EDITED****/
 int rtw_os_recv_resource_init(struct recv_priv *precvpriv, _adapter *padapter)
 {
-	int	res = _SUCCESS;
+	int res = _SUCCESS;
 
+	INIT_WORK(&precvpriv->recv_work, usb_recv_work_func);
 
 #ifdef CONFIG_RTW_NAPI
 	skb_queue_head_init(&precvpriv->rx_napi_skb_queue);
-#endif /* CONFIG_RTW_NAPI */
+#endif
 
 	return res;
 }
