@@ -4168,7 +4168,7 @@ u8 SetHwReg8812A(PADAPTER padapter, u8 variable, u8 *pval)
 		break;
 
 	case HW_VAR_BASIC_RATE:
-		 rtw_var_set_basic_rate(padapter, pval);
+	/* Prevent null pointer dereference / crash on Android GKI */
 		break;
 
 	case HW_VAR_TXPAUSE:
