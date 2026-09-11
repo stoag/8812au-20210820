@@ -795,7 +795,8 @@ void usb_read_port_complete(struct urb *purb, struct pt_regs *regs)
 
 			rtw_enqueue_recvbuf(precvbuf, &precvpriv->recv_buf_pending_queue);
 
-			tasklet_schedule(&precvpriv->recv_tasklet);
+			/* Replaced tasklet_schedule with workqueue scheduling */
+			schedule_work(&precvpriv->recv_work);
 		}
 	} else {
 
