@@ -165,15 +165,15 @@ void rtw_os_free_recvframe(union recv_frame *precvframe)
 	}
 }
 
-/* init os related resource in struct recv_priv */
 int rtw_os_recv_resource_init(struct recv_priv *precvpriv, _adapter *padapter)
 {
-	int	res = _SUCCESS;
+	int res = _SUCCESS;
 
+	INIT_WORK(&precvpriv->recv_work, usb_recv_work_func);
 
 #ifdef CONFIG_RTW_NAPI
 	skb_queue_head_init(&precvpriv->rx_napi_skb_queue);
-#endif /* CONFIG_RTW_NAPI */
+#endif
 
 	return res;
 }
