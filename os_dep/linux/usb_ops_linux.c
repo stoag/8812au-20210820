@@ -556,12 +556,8 @@ check_completion:
 
 	rtw_free_xmitbuf(pxmitpriv, pxmitbuf);
 
-	/* if(rtw_txframes_pending(padapter))	 */
-	{
-		tasklet_hi_schedule(&pxmitpriv->xmit_tasklet);
-	}
-
-
+	/* Replaced tasklet_hi_schedule with workqueue scheduling */
+	schedule_work(&pxmitpriv->xmit_work);	}
 }
 
 u32 usb_write_port(struct intf_hdl *pintfhdl, u32 addr, u32 cnt, u8 *wmem)
