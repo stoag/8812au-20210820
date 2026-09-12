@@ -557,7 +557,7 @@ check_completion:
 	rtw_free_xmitbuf(pxmitpriv, pxmitbuf);
 
 	/* Replaced tasklet_hi_schedule with workqueue scheduling */
-	schedule_work(&pxmitpriv->xmit_work);	}
+	schedule_work(&pxmitpriv->xmit_work);
 }
 
 u32 usb_write_port(struct intf_hdl *pintfhdl, u32 addr, u32 cnt, u8 *wmem)
@@ -742,15 +742,15 @@ void usb_init_recvbuf(_adapter *padapter, struct recv_buf *precvbuf)
 int recvbuf2recvframe(PADAPTER padapter, void *ptr);
 
 #ifdef CONFIG_USE_USB_BUFFER_ALLOC_RX
-void usb_recv_tasklet(void *priv)
+void usb_recv_work_func(struct work_struct *work)
 {
+	struct recv_priv *precvpriv = container_of(work, struct recv_priv, recv_work);
+	_adapter	*padapter = container_of(precvpriv, _adapter, recvpriv);
 	struct recv_buf *precvbuf = NULL;
-	_adapter	*padapter = (_adapter *)priv;
-	struct recv_priv	*precvpriv = &padapter->recvpriv;
 
 	while (NULL != (precvbuf = rtw_dequeue_recvbuf(&precvpriv->recv_buf_pending_queue))) {
 		if (RTW_CANNOT_RUN(padapter)) {
-			RTW_INFO("recv_tasklet => bDriverStopped(%s) OR bSurpriseRemoved(%s)\n"
+			RTW_INFO("recv_work => bDriverStopped(%s) OR bSurpriseRemoved(%s)\n"
 				, rtw_is_drv_stopped(padapter)? "True" : "False"
 				, rtw_is_surprise_removed(padapter)? "True" : "False");
 			break;
@@ -881,17 +881,17 @@ u32 usb_read_port(struct intf_hdl *pintfhdl, u32 addr, u32 cnt, u8 *rmem)
 }
 #else	/* CONFIG_USE_USB_BUFFER_ALLOC_RX */
 
-void usb_recv_tasklet(void *priv)
+void usb_recv_work_func(struct work_struct *work)
 {
 	_pkt			*pskb;
-	_adapter		*padapter = (_adapter *)priv;
-	struct recv_priv	*precvpriv = &padapter->recvpriv;
+	struct recv_priv	*precvpriv = container_of(work, struct recv_priv, recv_work);
+	_adapter		*padapter = container_of(precvpriv, _adapter, recvpriv);
 	struct recv_buf	*precvbuf = NULL;
 
 	while (NULL != (pskb = skb_dequeue(&precvpriv->rx_skb_queue))) {
 
 		if (RTW_CANNOT_RUN(padapter)) {
-			RTW_INFO("recv_tasklet => bDriverStopped(%s) OR bSurpriseRemoved(%s)\n"
+			RTW_INFO("recv_work => bDriverStopped(%s) OR bSurpriseRemoved(%s)\n"
 				, rtw_is_drv_stopped(padapter) ? "True" : "False"
 				, rtw_is_surprise_removed(padapter) ? "True" : "False");
 			#ifdef CONFIG_PREALLOC_RX_SKB_BUFFER
@@ -948,7 +948,7 @@ void usb_read_port_complete(struct urb *purb, struct pt_regs *regs)
 			#ifndef CONFIG_FIX_NR_BULKIN_BUFFER
 			if (skb_queue_len(&precvpriv->rx_skb_queue) <= 1)
 			#endif
-				tasklet_schedule(&precvpriv->recv_tasklet);
+				schedule_work(&precvpriv->recv_work);
 
 			precvbuf->pskb = NULL;
 			rtw_read_port(padapter, precvpriv->ff_hwaddr, 0, (unsigned char *)precvbuf);
