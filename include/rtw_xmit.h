@@ -441,7 +441,7 @@ struct pkt_attrib {
 	u8	rate;
 	u8	intel_proxim;
 	u8	retry_ctrl;
-	u8   mbssid;
+	u8    mbssid;
 	u8	ldpc;
 	u8	stbc;
 #ifdef CONFIG_WMMPS_STA
@@ -696,7 +696,7 @@ struct	hw_txqueue	{
 	volatile sint	head;
 	volatile sint	tail;
 	volatile sint 	free_sz;	/* in units of 64 bytes */
-	volatile sint      free_cmdsz;
+	volatile sint    free_cmdsz;
 	volatile sint	 txsz[8];
 	uint	ff_hwaddr;
 	uint	cmd_hwaddr;
@@ -755,7 +755,7 @@ struct	xmit_priv	{
 
 	_adapter	*adapter;
 
-	u8   vcs_setting;
+	u8    vcs_setting;
 	u8	vcs;
 	u8	vcs_type;
 	/* u16  rts_thresh; */
@@ -774,7 +774,7 @@ struct	xmit_priv	{
 	_sema	tx_retevt;/* all tx return event; */
 	u8		txirp_cnt;
 
-	_tasklet xmit_tasklet;
+	struct work_struct xmit_work;
 
 	/* per AC pending irp */
 	int beq_cnt;
@@ -789,12 +789,12 @@ struct	xmit_priv	{
 	struct rtw_tx_ring	tx_ring[PCI_MAX_TX_QUEUE_COUNT];
 	int	txringcount[PCI_MAX_TX_QUEUE_COUNT];
 	u8 	beaconDMAing;		/* flag of indicating beacon is transmiting to HW by DMA */
-	_tasklet xmit_tasklet;
+	struct work_struct xmit_work;
 #endif
 
 #if defined(CONFIG_SDIO_HCI) || defined(CONFIG_GSPI_HCI)
 #ifdef CONFIG_SDIO_TX_TASKLET
-	_tasklet xmit_tasklet;
+	struct work_struct xmit_work;
 #else
 	_thread_hdl_	SdioXmitThread;
 	_sema		SdioXmitSema;
@@ -816,7 +816,7 @@ struct	xmit_priv	{
 	uint free_xmit_extbuf_cnt;
 
 	struct xmit_buf	pcmd_xmitbuf[CMDBUF_MAX];
-	u8   hw_ssn_seq_no;/* mapping to REG_HW_SEQ 0,1,2,3 */
+	u8    hw_ssn_seq_no;/* mapping to REG_HW_SEQ 0,1,2,3 */
 	u16	nqos_ssn;
 #ifdef CONFIG_TX_EARLY_MODE
 
@@ -879,9 +879,9 @@ extern struct xmit_frame *__rtw_alloc_cmdxmitframe_8192ee(struct xmit_priv *pxmi
 		enum cmdbuf_type buf_type);
 #define rtw_alloc_bcnxmitframe(p) __rtw_alloc_cmdxmitframe_8192ee(p, CMDBUF_BEACON)
 #elif defined(CONFIG_RTL8822B) && defined(CONFIG_PCI_HCI)
-extern struct xmit_frame *__rtw_alloc_cmdxmitframe_8822be(struct xmit_priv *pxmitpriv,
+extern struct xmit_frame *__rtw_alloc_cmdxmitwork_frame_8822be(struct xmit_priv *pxmitpriv,
 		enum cmdbuf_type buf_type);
-#define rtw_alloc_bcnxmitframe(p) __rtw_alloc_cmdxmitframe_8822be(p, CMDBUF_BEACON)
+#define rtw_alloc_bcnxmitframe(p) __rtw_alloc_cmdxmitwork_frame_8822be(p, CMDBUF_BEACON)
 #elif defined(CONFIG_RTL8822C) && defined(CONFIG_PCI_HCI)
 extern struct xmit_frame *__rtw_alloc_cmdxmitframe_8822ce(struct xmit_priv *pxmitpriv,
 		enum cmdbuf_type buf_type);
