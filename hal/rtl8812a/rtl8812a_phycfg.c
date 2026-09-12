@@ -1804,7 +1804,7 @@ phy_SwChnlAndSetBwMode8812(
 	if (IS_HARDWARE_TYPE_8812(Adapter))
 		phy_InitRssiTRSW(Adapter);
 
-	if ((pHalData->bNeedIQK == _TRUE)
+	if (pHalData->bNeedIQK == _TRUE)
 #if (MP_DRIVER == 1)
 	    || (Adapter->registrypriv.mp_mode == 1)
 #endif
