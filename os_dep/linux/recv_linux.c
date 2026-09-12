@@ -165,6 +165,8 @@ void rtw_os_free_recvframe(union recv_frame *precvframe)
 	}
 }
 
+extern void usb_recv_work_func(struct work_struct *work);
+
 int rtw_os_recv_resource_init(struct recv_priv *precvpriv, _adapter *padapter)
 {
 	int res = _SUCCESS;
@@ -730,4 +732,3 @@ void rtw_os_read_port(_adapter *padapter, struct recv_buf *precvbuf)
 #endif
 
 }
-
