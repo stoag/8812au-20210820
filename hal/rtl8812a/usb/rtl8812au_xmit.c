@@ -1030,10 +1030,6 @@ s32 rtl8812au_hal_mgmt_xmitframe_enqueue(PADAPTER padapter, struct xmit_frame *p
 	if (err != _SUCCESS) {
 		rtw_free_xmitframe(pxmitpriv, pxmitframe);
 		pxmitpriv->tx_drop++;
-	} else {
-#ifdef PLATFORM_LINUX
-		tasklet_hi_schedule(&pxmitpriv->xmit_tasklet);
-#endif
 	}
 	return err;
 }
