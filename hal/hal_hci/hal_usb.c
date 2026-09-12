@@ -24,12 +24,6 @@ int	usb_init_recv_priv(_adapter *padapter, u16 ini_in_buf_sz)
 	int	i, res = _SUCCESS;
 	struct recv_buf *precvbuf;
 
-#ifdef PLATFORM_LINUX
-	/*tasklet_init(&precvpriv->recv_tasklet,
-		     (void(*)(unsigned long))usb_recv_tasklet,
-		     (unsigned long)padapter); */
-#endif /* PLATFORM_LINUX */
-
 #ifdef PLATFORM_FREEBSD
 #ifdef CONFIG_RX_INDICATE_QUEUE
 	TASK_INIT(&precvpriv->rx_indicate_tasklet, 0, rtw_rx_indicate_tasklet, padapter);
