@@ -293,7 +293,7 @@ void rtw_os_xmit_schedule(_adapter *padapter)
 	_enter_critical_bh(&pxmitpriv->lock, &irqL);
 
 	if (rtw_txframes_pending(padapter))
-		tasklet_hi_schedule(&pxmitpriv->xmit_tasklet);
+		schedule_work(&pxmitpriv->xmit_work);
 
 	_exit_critical_bh(&pxmitpriv->lock, &irqL);
 	
