@@ -380,8 +380,8 @@ struct recv_priv {
 
 #endif
 #if defined(PLATFORM_LINUX) || defined(PLATFORM_FREEBSD)
+	struct work_struct recv_work;
 	_tasklet irq_prepare_beacon_tasklet;
-	_tasklet recv_tasklet;
 
 	struct sk_buff_head free_recv_skb_queue;
 	struct sk_buff_head rx_skb_queue;
@@ -701,8 +701,8 @@ __inline static u8 *recvframe_push(union recv_frame *precvframe, sint sz)
 
 	/* add data to the start of recv_frame
 	*
-	*      This function extends the used data area of the recv_frame at the buffer
-	*      start. rx_data must be still larger than rx_head, after pushing.
+	*     This function extends the used data area of the recv_frame at the buffer
+	*     start. rx_data must be still larger than rx_head, after pushing.
 	*/
 
 	if (precvframe == NULL)
