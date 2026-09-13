@@ -1037,7 +1037,7 @@ s32 rtl8812au_hal_mgmt_xmitframe_enqueue(PADAPTER padapter, struct xmit_frame *p
 
 s32	 rtl8812au_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmitframe)
 {
-	struct xmit_priv	*pxmitpriv = &padapter->xmitpriv;
+struct xmit_priv	*pxmitpriv = &padapter->xmitpriv;
 	s32 err;
 
 	err = rtw_xmitframe_enqueue(padapter, pxmitframe);
@@ -1049,16 +1049,11 @@ s32	 rtl8812au_hal_xmitframe_enqueue(_adapter *padapter, struct xmit_frame *pxmi
 #ifdef PLATFORM_LINUX
 		schedule_work(&pxmitpriv->xmit_work);
 #endif
-	} else {
-#ifdef PLATFORM_LINUX
-		schedule_work(&pxmitpriv->xmit_work);
-#endif
 	}
 
 	return err;
 
 }
-
 
 #ifdef CONFIG_HOSTAPD_MLME
 
