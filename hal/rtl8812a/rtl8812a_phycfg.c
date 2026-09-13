@@ -1808,7 +1808,7 @@ phy_SwChnlAndSetBwMode8812(
 #if (MP_DRIVER == 1)
 	    || (Adapter->registrypriv.mp_mode == 1)
 #endif
-	   ) {
+	     {
 		if (IS_HARDWARE_TYPE_8812(Adapter)) {
 #if (RTL8812A_SUPPORT == 1)
 			/*phy_iq_calibrate_8812a(Adapter, _FALSE);*/
